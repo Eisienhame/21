@@ -32,3 +32,15 @@ class Category(models.Model):
         verbose_name = 'категория'
         verbose_name_plural = 'категории'
         ordering = ('name',)
+
+
+class Record(models.Model):
+    record_title = models.CharField(max_length=150, verbose_name='Заголовок')
+    slug = models.CharField(max_length=150, verbose_name='слаг')
+    content = models.TextField(max_length=15000, verbose_name='Содержимое')
+    preview_image = models.ImageField(upload_to='image/', verbose_name='Изображение', **NULLABLE)
+    date_of_creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+    sign_of_publication = models.BooleanField(default=True, verbose_name='Активный')
+
+    def __str__(self):
+        return f'{self.record_title}'
