@@ -9,8 +9,8 @@ class Product(models.Model):
     preview_image = models.ImageField(upload_to='products/', verbose_name='Изображение (превью)', **NULLABLE)
     category = models.CharField(max_length=150, verbose_name='Категория')
     price = models.IntegerField(verbose_name='Цена за покупку')
-    date_of_creation = models.DateTimeField(verbose_name='Дата создания')
-    Last_modified_date = models.DateTimeField(verbose_name='Дата последнего изменения')
+    date_of_creation = models.DateTimeField(verbose_name='Дата создания', **NULLABLE)
+    Last_modified_date = models.DateTimeField(verbose_name='Дата последнего изменения', **NULLABLE)
 
     def __str__(self):
         return f'{self.name}'
@@ -34,13 +34,18 @@ class Category(models.Model):
         ordering = ('name',)
 
 
-class Record(models.Model):
-    record_title = models.CharField(max_length=150, verbose_name='Заголовок')
-    slug = models.CharField(max_length=150, verbose_name='слаг')
+class Blog(models.Model):
+    article_title = models.CharField(max_length=150, verbose_name='Заголовок')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     content = models.TextField(max_length=15000, verbose_name='Содержимое')
     preview_image = models.ImageField(upload_to='image/', verbose_name='Изображение', **NULLABLE)
     date_of_creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
-    sign_of_publication = models.BooleanField(default=True, verbose_name='Активный')
+    active_of_publication = models.BooleanField(default=True, verbose_name='Активный')
 
     def __str__(self):
-        return f'{self.record_title}'
+        return f'{self.article_title}'
+
+    class Meta:
+        verbose_name = 'статья'
+        verbose_name_plural = 'статьи'
+        ordering = ('article_title',)
