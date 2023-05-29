@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from catalog.models import Product
+from catalog.models import Product, Blog
 from django.views import generic
 
 
@@ -21,15 +21,11 @@ def take_contact(request):
 class ProductListView(generic.ListView):
     model = Product
 
-# def product_card(request):
-#     context = {
-#         'product_card': Product.objects.all()
-#     }
-#     return render(request, 'catalog/product_card.html', context)
 
+class BlogListView(generic.ListView):
+    model = Blog
 
-def test(request):
-    context = {
-        'product_card': Product.objects.all()
-    }
-    return render(request, 'catalog/test.html', context)
+    def get_queryset(self):  # выводит только активные записи
+        queryset = super().get_queryset()
+        queryset = queryset.filter(active_of_publication=True)
+        return queryset
