@@ -29,3 +29,7 @@ class BlogListView(generic.ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(active_of_publication=True)
         return queryset
+
+
+class BlogDetailView(generic.DetailView):
+    model = Blog

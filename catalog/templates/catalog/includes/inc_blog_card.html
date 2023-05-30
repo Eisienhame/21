@@ -2,10 +2,12 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <img src="{% mediapath blog.preview_image %}" alt="Картинка"  width="200" height="200"/>
-        <h1>{{ product.article_title }}</h1>
+        <h1>{{ blog.article_title }}</h1>
         <p class="card-text">{{ blog.slug }}</p>
         <p class="card-text">{{ blog.content|slice:"100" }}</p>
-        <p class="card-text">{{ blog.date_of_creation }}</p>
-        <p class="card-text">{{ blog.active_of_publication }}</p>
+
+        <p><a class="btn btn-secondary" href="{% url 'catalog:blog_detail' object.slug %}">Посмотреть &raquo;</a></p>
+        <p><a class="btn btn-warning" href="{% url 'catalog:blog_update' object.pk %}">Изменить &raquo;</a></p>
+        <p><a class="btn btn-danger" href="{% url 'catalog:blog_delete' object.pk %}">Удалить &raquo;</a></p>
     </div>
 </div>

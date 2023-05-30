@@ -16,4 +16,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Blog)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('article_title', 'slug', 'active_of_publication')
+    list_display = ('article_title', 'active_of_publication')

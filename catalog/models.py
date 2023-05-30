@@ -41,6 +41,7 @@ class Blog(models.Model):
     preview_image = models.ImageField(upload_to='image/', verbose_name='Изображение', **NULLABLE)
     date_of_creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     active_of_publication = models.BooleanField(default=True, verbose_name='Активный')
+    views_count = models.IntegerField(default=0, verbose_name='Кол-во просмотров')
 
     def __str__(self):
         return f'{self.article_title}'
