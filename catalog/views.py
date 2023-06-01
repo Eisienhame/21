@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from catalog.models import Product, Blog
 from django.views import generic
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -33,3 +34,20 @@ class BlogListView(generic.ListView):
 
 class BlogDetailView(generic.DetailView):
     model = Blog
+
+
+class BlogCreateView(generic.CreateView):
+    model = Blog
+    fields = ('article_title', 'slug', 'content', 'preview_image')
+    success_url = reverse_lazy('catalog:blog_list')
+
+
+class BlogUpdateView(generic.UpdateView):
+    model = Blog
+    fields = ('article_title', 'slug', 'content', 'preview_image')
+    success_url = reverse_lazy('catalog:blog_list')
+
+
+class BlogDeleteView(generic.DeleteView):
+    model = Blog
+    success_url = reverse_lazy('catalog:blog_list')
