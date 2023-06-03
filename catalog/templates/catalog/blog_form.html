@@ -8,7 +8,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" class="btn btn-success"
-                   value="{% if object %}Сохранить{% else %} Создать {% endif %}">
+                   value="{% if blog %}Сохранить{% else %} Создать {% endif %}">
         </form>
         <div class="card-footer">
             <a href="{% url 'catalog:blog_list' %}" class="btn btn-primary"><< Назад</a>

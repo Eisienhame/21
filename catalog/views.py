@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from catalog.models import Product, Blog
 from django.views import generic
 from django.urls import reverse_lazy
@@ -34,6 +34,12 @@ class BlogListView(generic.ListView):
 
 class BlogDetailView(generic.DetailView):
     model = Blog
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = self.get_object()
+        get_object_or_404(Blog, pk=self.get_object().pk).increase_views()
+        return context_data
 
 
 class BlogCreateView(generic.CreateView):

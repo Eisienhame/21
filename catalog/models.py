@@ -37,8 +37,8 @@ class Category(models.Model):
 
 class Blog(models.Model):
     article_title = models.CharField(max_length=150, verbose_name='Заголовок')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
-    content = models.TextField(max_length=15000, verbose_name='Содержимое')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL",)
+    content = models.TextField(max_length=5000, verbose_name='Содержимое')
     preview_image = models.ImageField(upload_to='image/', verbose_name='Изображение', **NULLABLE)
     date_of_creation = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     active_of_publication = models.BooleanField(default=True, verbose_name='Активный')
@@ -51,7 +51,7 @@ class Blog(models.Model):
         return reverse('record_detail', kwargs={'slug': self.slug})
 
     def increase_views(self):
-        self.views += 1
+        self.views_count += 1
         self.save()
 
     class Meta:
