@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+
+from catalog.forms import ProductForm
 from catalog.models import Product, Blog
 from django.views import generic
 from django.urls import reverse_lazy
@@ -29,19 +31,22 @@ class ProductDetailView(generic.DetailView):
 
 class ProductCreateView(generic.CreateView):
     model = Product
-    fields = ('name', 'description', 'preview_image', 'category', 'price')
+    form_class = ProductForm
+    # fields = ('name', 'description', 'preview_image', 'category', 'price')
     success_url = reverse_lazy('catalog:product_list')
 
 
 class ProductDeleteView(generic.DeleteView):
     model = Product
+
     success_url = reverse_lazy('catalog:product_list')
 
 
 class ProductUpdateView(generic.UpdateView):
     model = Product
-    fields = ('name', 'description', 'preview_image', 'category', 'price')
-    success_url = reverse_lazy('catalog:product_list')
+    form_class = ProductForm
+    # fields = ('name', 'description', 'preview_image', 'category', 'price')
+    success_url = reverse_lazy('catalog:blog_list')
 
 
 class BlogListView(generic.ListView):
@@ -72,7 +77,11 @@ class BlogCreateView(generic.CreateView):
 class BlogUpdateView(generic.UpdateView):
     model = Blog
     fields = ('article_title', 'slug', 'content', 'preview_image')
-    success_url = reverse_lazy('catalog:blog_detail')
+    success_url = reverse_lazy('catalog:blog_list')
+
+
+    # def success_url(self, *args, **kwargs):
+    #     return reverse_lazy('catalog:blog_update', args=[self.get_object().pk])
 
 
 class BlogDeleteView(generic.DeleteView):
