@@ -1,0 +1,18 @@
+{% extends 'catalog/base.html'%}
+{% load mediapath %}
+
+{% block content %}
+    <div class="card-body">
+
+        <img src="{% mediapath product.preview_image %}" alt="Картинка"  width="200" height="200"/>
+        <h1>{{ product.name }}</h1>
+        <p class="card-text">{{ product.category }}</p>
+        <p class="card-text">{{ product.description|slice:"100" }}</p>
+        <p class="card-text">{{ product.price }}</p>
+        <p class="card-text">{{ product.date_of_creation }}</p>
+
+        <div class="card-footer">
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary"><< Назад</a>
+        </div>>
+    </div>
+{% endblock %}

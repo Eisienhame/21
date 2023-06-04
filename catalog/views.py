@@ -23,6 +23,27 @@ class ProductListView(generic.ListView):
     model = Product
 
 
+class ProductDetailView(generic.DetailView):
+    model = Product
+
+
+class ProductCreateView(generic.CreateView):
+    model = Product
+    fields = ('name', 'description', 'preview_image', 'category', 'price')
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductDeleteView(generic.DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:product_list')
+
+
+class ProductUpdateView(generic.UpdateView):
+    model = Product
+    fields = ('name', 'description', 'preview_image', 'category', 'price')
+    success_url = reverse_lazy('catalog:product_list')
+
+
 class BlogListView(generic.ListView):
     model = Blog
 
@@ -51,7 +72,7 @@ class BlogCreateView(generic.CreateView):
 class BlogUpdateView(generic.UpdateView):
     model = Blog
     fields = ('article_title', 'slug', 'content', 'preview_image')
-    success_url = reverse_lazy('catalog:blog_list')
+    success_url = reverse_lazy('catalog:blog_detail')
 
 
 class BlogDeleteView(generic.DeleteView):

@@ -4,8 +4,10 @@
         <img src="{% mediapath product.preview_image %}" alt="Картинка"  width="200" height="200"/>
         <h1>{{ product.name }}</h1>
         <p class="card-text">{{ product.category }}</p>
-        <p class="card-text">{{ product.description|slice:"100" }}</p>
         <p class="card-text">{{ product.price }}</p>
-        <p class="card-text">{{ product.date_of_creation }}</p>
+
+        <p><a class="btn btn-secondary" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть &raquo;</a></p>
+        <p><a class="btn btn-warning" href="{% url 'catalog:product_update' product.pk %}">Изменить &raquo;</a></p>
+        <p><a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить &raquo;</a></p>
     </div>
 </div>

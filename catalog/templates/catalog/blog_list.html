@@ -1,7 +1,7 @@
 {% extends 'catalog/base.html'%}
 
 {% block content %}
-    <div class="col-12">   <!-- кнопка Создать студента -->
+    <div class="col-12">
         <a href="{% url 'catalog:blog_create' %}" class="btn btn-primary m-2">Создать запись</a>
     </div>
     {% for blog in blog_list %}
