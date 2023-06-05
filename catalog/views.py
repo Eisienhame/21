@@ -45,6 +45,7 @@ class ProductDeleteView(generic.DeleteView):
 class ProductUpdateView(generic.UpdateView):
     model = Product
     form_class = ProductForm
+    template_name = 'catalog/product_form_with_formset.html'
     # fields = ('name', 'description', 'preview_image', 'category', 'price')
     success_url = reverse_lazy('catalog:blog_list')
 
