@@ -3,15 +3,37 @@
 {% load mediapath %}
 
 {% block content %}
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-success"
-                   value="{% if product %}Сохранить{% else %} Создать {% endif %}">
+    <div class="col">
+        <form class="row" method="post">
+            <div class="card-body">
+
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-success"
+                           value="{% if product %}Сохранить{% else %} Создать {% endif %}">
+
+                <div class="card-footer">
+                    <a href="{% url 'catalog:product_list' %}" class="btn btn-primary"><< Назад</a>
+                </div>
+            </div>
+        <div class="col-6">
+            <div class="card">
+               <div class="card-header">
+                   Продукты
+               </div>
+               <div class="card-body">
+                   <table class="table">
+                       {{ formset.managment_form }}
+                       {% for form in formset.forms %}
+                           <tr class="subject-form">
+                                {{ form.as_p }}
+
+                           </tr>
+                       {% endfor %}
+                   </table>
+               </div>
+            </div>
+        </div>
         </form>
-        <div class="card-footer">
-            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary"><< Назад</a>
-        </div>>
     </div>
 {% endblock %}
