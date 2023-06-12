@@ -6,8 +6,12 @@
         <p class="card-text">{{ product.category }}</p>
         <p class="card-text">{{ product.price }}</p>
 
+        {% if user.is_authenticated %}
         <p><a class="btn btn-secondary" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть &raquo;</a></p>
         <p><a class="btn btn-warning" href="{% url 'catalog:product_update' product.pk %}">Изменить &raquo;</a></p>
         <p><a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить &raquo;</a></p>
+        {% else %}
+        <p class="uk-text-center">Войдите для просмотра полной информации </p>
+        {% endif %}
     </div>
 </div>

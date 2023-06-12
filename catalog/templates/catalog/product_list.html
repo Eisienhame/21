@@ -1,10 +1,11 @@
 {% extends 'catalog/base.html'%}
 
 {% block content %}
+    {% if user.is_authenticated %}
     <div class="col-12">
         <a href="{% url 'catalog:product_create' %}" class="btn btn-primary m-2">Создать запись</a>
     </div>
-
+    {% endif %}
     {% for product in product_list %}
         {% include 'catalog/includes/inc_product_card.html' %}
     {% endfor %}
