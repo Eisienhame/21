@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 from users.models import User
-
+import os
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -12,5 +12,5 @@ class Command(BaseCommand):
 
         )
 
-        user.set_password('12345678')
+        user.set_password(f'{os.getenv("bd_pass")}')
         user.save()

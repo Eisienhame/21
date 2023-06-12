@@ -136,7 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_HOST = 'smpt.yandex.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'some@yandex.ru'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = f'{os.getenv("bd_pass")}'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
