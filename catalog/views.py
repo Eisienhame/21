@@ -36,6 +36,9 @@ class ProductCreateView(generic.CreateView):
     # fields = ('name', 'description', 'preview_image', 'category', 'price')
     success_url = reverse_lazy('catalog:product_list')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ProductDeleteView(generic.DeleteView):
     model = Product
@@ -47,7 +50,7 @@ class ProductUpdateView(generic.UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
-    # fields = ('name', 'description', 'preview_image', 'category', 'price')
+    #fields = ('name', 'description', 'preview_image', 'category', 'price')
     success_url = reverse_lazy('catalog:product_list')
 
     def get_context_data(self, **kwargs):
