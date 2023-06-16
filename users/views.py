@@ -29,13 +29,14 @@ class RegisterView(CreateView):
         self.object.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
-        url_1 = super().get_success_url()
-        return str(url_1) + str(self.object.email)
+    # def get_success_url(self):
+    #     url_1 = super().get_success_url()
+    #     return str(url_1) + str(self.object.email)
 
 
 def activate_user(request, email):
-    user = User.objects.filter(email=email)
+
+    user = User.objects.filter(email=email).first()
     user.is_active = True
     user.save()
     return redirect('users:login')
