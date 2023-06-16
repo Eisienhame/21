@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from users.views import ProfileUpdateView, RegisterView, activate_user
+from users.views import ProfileUpdateView, RegisterView, activate_user, generate_pass
 from users.apps import UsersConfig
 
 app_name = UsersConfig.name
@@ -12,5 +12,6 @@ urlpatterns = [
     path('profile/', ProfileUpdateView.as_view(), name='profile'),
     path('register/', RegisterView.as_view(), name='register'),
     path('activate/<email>/', activate_user, name='activate'),
+    path('profile/generate_pass', generate_pass, name='generate_password'),
 
 ]
