@@ -12,6 +12,6 @@ urlpatterns = [
     path('profile/', ProfileUpdateView.as_view(), name='profile'),
     path('register/', RegisterView.as_view(), name='register'),
     path('activate/<email>/', activate_user, name='activate'),
-    path('profile/generate_pass', generate_pass, name='generate_password'),
+    path('backup_pass', generate_pass, name='generate_password'),
 
 ]

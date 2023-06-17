@@ -48,8 +48,10 @@ def activate_user(request, email):
     return redirect('users:login')
 
 
-def generate_pass(request, email):
-    new_pass = BaseUserManager.make_random_password()
+def generate_pass_f(email):
+    p = BaseUserManager()
+    new_pass = p.make_random_password()
+    print(new_pass)
     user = User.objects.filter(email=email).first()
     send_mail(
         subject='Восстановление пароля',
@@ -59,5 +61,11 @@ def generate_pass(request, email):
     )
     user.set_password(new_pass)
     user.save()
-    return redirect(reverse('users:login'))
 
+
+def generate_pass(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        generate_pass_f(email)
+
+    return render(request, 'users/backup_pass.html')

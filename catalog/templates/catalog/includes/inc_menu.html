@@ -25,16 +25,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{% url 'users:register' %}">Зарегистрироваться</a>
     </li>
-        <div class="uk-card-body">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-
-                <input class="btn btn-primary" type="submit"
-                       value="Сброс ">
-                <button href="{% url 'users:generate_password' %}" type="submit" class="uk-button-primary">Восстановить пароль</button>
-            </form>
-        </div>
+        <a class="nav-link" href="{% url 'users:generate_password' %}">Восстановить пароль</a>
     </li>
     {% endif %}
 </ul>
