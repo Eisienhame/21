@@ -13,7 +13,7 @@ class Product(models.Model):
     date_of_creation = models.DateTimeField(verbose_name='Дата создания', **NULLABLE)
     Last_modified_date = models.DateTimeField(verbose_name='Дата последнего изменения', **NULLABLE)
     user = models.CharField(max_length=150, verbose_name='Создатель', **NULLABLE)
-
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано', **NULLABLE)
     def __str__(self):
         return f'{self.name}'
 

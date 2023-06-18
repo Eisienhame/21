@@ -1,5 +1,5 @@
 from audioop import reverse
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView, CreateView
 from django.contrib.auth.views import PasswordResetView
 from project import settings
@@ -12,7 +12,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.core.mail import send_mail
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     model = User
     form_class = UserForm

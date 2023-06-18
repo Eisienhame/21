@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.forms import inlineformset_factory
-
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Blog, Version
 from django.views import generic
@@ -22,15 +22,15 @@ def take_contact(request):
     return render(request, 'catalog/take_contact.html')
 
 
-class ProductListView(generic.ListView):
+class ProductListView(LoginRequiredMixin, generic.ListView):
     model = Product
 
 
-class ProductDetailView(generic.DetailView):
+class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
     model = Product
+    permission_required = 'catalog.view.product'
 
-
-class ProductCreateView(generic.CreateView):
+class ProductCreateView(LoginRequiredMixin, generic.CreateView):
     model = Product
     form_class = ProductForm
     # fields = ('name', 'description', 'preview_image', 'category', 'price')
@@ -40,13 +40,14 @@ class ProductCreateView(generic.CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class ProductDeleteView(generic.DeleteView):
+
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     model = Product
 
     success_url = reverse_lazy('catalog:product_list')
 
 
-class ProductUpdateView(generic.UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
@@ -72,7 +73,7 @@ class ProductUpdateView(generic.UpdateView):
 
         return super().form_valid(form)
 
-class BlogListView(generic.ListView):
+class BlogListView(LoginRequiredMixin, generic.ListView):
     model = Blog
 
     def get_queryset(self):  # выводит только активные записи
@@ -81,7 +82,7 @@ class BlogListView(generic.ListView):
         return queryset
 
 
-class BlogDetailView(generic.DetailView):
+class BlogDetailView(LoginRequiredMixin, generic.DetailView):
     model = Blog
 
     def get_context_data(self, **kwargs):
@@ -91,13 +92,13 @@ class BlogDetailView(generic.DetailView):
         return context_data
 
 
-class BlogCreateView(generic.CreateView):
+class BlogCreateView(LoginRequiredMixin, generic.CreateView):
     model = Blog
     fields = ('article_title', 'slug', 'content', 'preview_image')
     success_url = reverse_lazy('catalog:blog_list')
 
 
-class BlogUpdateView(generic.UpdateView):
+class BlogUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Blog
     fields = ('article_title', 'slug', 'content', 'preview_image')
     success_url = reverse_lazy('catalog:blog_list')
@@ -107,6 +108,6 @@ class BlogUpdateView(generic.UpdateView):
     #     return reverse_lazy('catalog:blog_update', args=[self.get_object().pk])
 
 
-class BlogDeleteView(generic.DeleteView):
+class BlogDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Blog
     success_url = reverse_lazy('catalog:blog_list')
