@@ -28,13 +28,15 @@ class ProductListView(LoginRequiredMixin, generic.ListView):
 
 class ProductDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
     model = Product
-    permission_required = 'catalog.view.product'
+    permission_required = 'catalog.view_product'
+
 
 class ProductCreateView(LoginRequiredMixin, generic.CreateView):
     model = Product
     form_class = ProductForm
     # fields = ('name', 'description', 'preview_image', 'category', 'price')
     success_url = reverse_lazy('catalog:product_list')
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -45,7 +47,7 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.Del
     model = Product
 
     success_url = reverse_lazy('catalog:product_list')
-
+    permission_required = 'catalog.delete_product'
 
 class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     model = Product
@@ -53,6 +55,8 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Upd
     template_name = 'catalog/product_form.html'
     #fields = ('name', 'description', 'preview_image', 'category', 'price')
     success_url = reverse_lazy('catalog:product_list')
+    permission_required = 'catalog.change_product'
+
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)

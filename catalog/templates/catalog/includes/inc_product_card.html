@@ -8,10 +8,12 @@
 
         {% if user.is_authenticated %}
         <p><a class="btn btn-secondary" href="{% url 'catalog:product_detail' product.pk %}">Посмотреть &raquo;</a></p>
+            {% if user.email == product.user %}
         <p><a class="btn btn-warning" href="{% url 'catalog:product_update' product.pk %}">Изменить &raquo;</a></p>
+            {% endif %}
             {% if user.is_superuser %}
         <p><a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}">Удалить &raquo;</a></p>
-                {% endif %}
+            {% endif %}
         {% else %}
         <p class="uk-text-center">Войдите для просмотра полной информации </p>
         {% endif %}
