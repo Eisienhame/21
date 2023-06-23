@@ -5,6 +5,8 @@ from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Blog, Version
 from django.views import generic
 from django.urls import reverse_lazy
+# from django.conf import settings
+# from django.core.cache import cache
 
 
 # Create your views here.
