@@ -4,11 +4,24 @@ from django.urls import reverse
 NULLABLE = {'blank': True, 'null': True}
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Наименование')
+    description = models.CharField(max_length=400, verbose_name='Описание')
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
+        ordering = ('name',)
+
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Наименование')
     description = models.CharField(max_length=400, verbose_name='Описание', **NULLABLE)
     preview_image = models.ImageField(upload_to='products/', verbose_name='Изображение (превью)', **NULLABLE)
-    category = models.CharField(max_length=150, verbose_name='Категория')
+    #category = models.CharField(max_length=150, verbose_name='Категория')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='категория', **NULLABLE)
     price = models.IntegerField(verbose_name='Цена за покупку')
     date_of_creation = models.DateTimeField(verbose_name='Дата создания', **NULLABLE)
     Last_modified_date = models.DateTimeField(verbose_name='Дата последнего изменения', **NULLABLE)
@@ -23,17 +36,7 @@ class Product(models.Model):
         ordering = ('name',)
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Наименование')
-    description = models.CharField(max_length=400, verbose_name='Описание')
 
-    def __str__(self):
-        return f'{self.name}'
-
-    class Meta:
-        verbose_name = 'категория'
-        verbose_name_plural = 'категории'
-        ordering = ('name',)
 
 
 class Blog(models.Model):

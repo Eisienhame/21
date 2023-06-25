@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.forms import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Blog, Version
+from catalog.models import Product, Blog, Version, Category
 from django.views import generic
 from django.urls import reverse_lazy
 # from django.conf import settings
@@ -22,6 +22,10 @@ def take_contact(request):
         print(f'пользователь {name} , телефон {phone}, говорит {message}')
 
     return render(request, 'catalog/take_contact.html')
+
+
+class CategoryListView(LoginRequiredMixin, generic.ListView):
+    model = Category
 
 
 class ProductListView(LoginRequiredMixin, generic.ListView):
